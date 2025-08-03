@@ -1,18 +1,18 @@
-// app/page.tsx or pages/index.tsx (depending on your setup)
+// app/page.tsx or pages/index.tsx
 import Link from 'next/link';
 
 export default function Hero() {
   return (
-    <main className="min-h-screen flex flex-col justify-center items-center bg-gray-100 dark:bg-gray-900 px-4">
-      <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+    <main className="min-h-screen flex flex-col justify-center items-center px-4">
+      <h1 className="text-4xl font-bold mb-4 text-center">
         Welcome to Feed-Wall
       </h1>
-      <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 text-center max-w-md">
+      <p className="text-lg text-muted-foreground mb-6 text-center max-w-md">
         Collect and display genuine user feedback with ease.
       </p>
       <Link
         href="/signin"
-        className="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
+        className="px-6 py-3 rounded-full border border-input hover:bg-accent hover:text-accent-foreground transition"
       >
         Get Started
       </Link>
