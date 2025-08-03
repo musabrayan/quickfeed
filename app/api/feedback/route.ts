@@ -1,83 +1,75 @@
-import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/db';
+import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
 const feedbackSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  email: z.string().email('Invalid email format'),
-  feedback: z.string().min(1, 'Feedback is required'),
-  rating: z.number().min(1).max(5),
-  projectid: z.number().positive('Valid project ID is required'),
+  name: z.string(),
+  email: z.string().email(),
+  feedback: z.string(),
+  rating: z.number().int().min(1).max(5),
+  projectid: z.number(),
 });
 
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
-    const body = await request.json();
-    
-    // Validate the input
-    const validatedData = feedbackSchema.parse(body);
-    
-    // Check if project exists
-    const project = await prisma.project.findUnique({
-      where: { id: validatedData.projectid }
-    });
-    
-    if (!project) {
+    const feedback = await req.json();
+    const parsedFeedback = feedbackSchema.safeParse(feedback);
+    if (!parsedFeedback.success) {
       return NextResponse.json(
-        { error: 'Project not found' },
-        { status: 404 }
-      );
-    }
-    
-    // Create the feedback
-    const feedback = await prisma.feedback.create({
-      data: {
-        name: validatedData.name,
-        email: validatedData.email,
-        feedback: validatedData.feedback,
-        rating: validatedData.rating,
-        projectid: validatedData.projectid,
-      },
-    });
-    
-    return NextResponse.json(
-      { 
-        message: 'Feedback submitted successfully',
-        feedback: {
-          id: feedback.id,
-          name: feedback.name,
-          rating: feedback.rating,
-          createdAt: feedback.createdAt
+        { error: 'Invalid feedback' },
+        {
+          status: 400,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          },
         }
-      },
-      { status: 201 }
-    );
-    
-  } catch (error) {
-    console.error('Error creating feedback:', error);
-    
-    if (error instanceof z.ZodError) {
-      return NextResponse.json(
-        { error: 'Invalid input data', details: error.issues },
-        { status: 400 }
       );
     }
-    
+    const submittedFeedback = await prisma.feedback.create({
+      data: {
+        name: parsedFeedback.data.name,
+        email: parsedFeedback.data.email,
+        feedback: parsedFeedback.data.feedback,
+        rating: parsedFeedback.data.rating,
+        projectid: parsedFeedback.data.projectid,
+      },
+    });
+
+    console.log(submittedFeedback);
     return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
+      {
+        message: 'Feedback submitted successfully',
+      },
+      {
+        status: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Content-Type',
+        },
+      }
+    );
+  } catch (err: any) {
+    return NextResponse.json(
+      { error: err.message },
+      {
+        status: 500,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Content-Type',
+        },
+      }
     );
   }
 }
 
-// Handle CORS for the widget
-export async function OPTIONS(request: NextRequest) {
+export async function OPTIONS() {
   return new NextResponse(null, {
-    status: 200,
+    status: 204,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     },
   });
 }
