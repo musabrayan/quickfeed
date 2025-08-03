@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -20,12 +20,13 @@ export default function SignIn() {
   const [error, setError] = useState('');
   const { data: session } = useSession();
   const router = useRouter();
+  const user = session?.user;
 
   useEffect(() => {
-    if (session?.user) {
+    if (user) {
       router.push('/projects');
     }
-  }, [session, router]);
+  }, [user, router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,25 +34,29 @@ export default function SignIn() {
     setError('');
 
     const res = await signIn('credentials', {
-      email,
-      password,
+      email: email,
+      password: password,
       redirect: false,
     });
 
     setIsLoading(false);
 
     if (res?.error) {
-      setError('Invalid email or password.');
+      setError('Invalid email or password. Please try again.');
     } else {
+      // You can add toast notification here if you install react-toastify
+      // toast.success("You've successfully logged in to your QuickFeed account.");
       router.push('/projects');
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4 py-12">
-      <div className="w-full max-w-md space-y-8">
+      <div className="w-full max-w-md space-y-8 relative">
 
-        <Card>
+      
+        
+        <Card className="relative z-10 shadow-lg backdrop-blur-sm border border-border/50">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl text-center"><span className='text-primary'>Quick</span>Feed</CardTitle>
             <CardDescription className="text-center">
@@ -92,8 +97,8 @@ export default function SignIn() {
                 <Separator className="w-full border-primary border-1" />
               </div>
               <div className="relative flex justify-center text-xs">
-                <span className="bg-background px-2 text-muted-foreground">
-                  Or continue with
+                <span className="bg-card px-2 text-muted-foreground">
+                  Or sign in with your email
                 </span>
               </div>
             </div>
@@ -153,7 +158,7 @@ export default function SignIn() {
 
               <Alert>
                 <AlertDescription>
-                  <strong>Demo credentials:</strong> demo@example.com / 123456
+                  <strong>Demo credentials:</strong> Email: demo@example.com, Password: 123456
                 </AlertDescription>
               </Alert>
 
@@ -163,12 +168,12 @@ export default function SignIn() {
                 disabled={isLoading}
               >
                 {isLoading ? (
-                  <>
+                    <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Signing in...
-                  </>
+                    </>
                 ) : (
-                  'Sign in'
+                  'Continue'
                 )}
               </Button>
             </form>
