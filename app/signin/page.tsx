@@ -158,7 +158,7 @@ export default function SignIn() {
 
               <Alert>
                 <AlertDescription>
-                  <strong>Demo credentials:</strong> Email: demo@example.com, Password: 123456
+                  <strong>Test credentials:</strong> Email: test@example.com, Password: 121212
                 </AlertDescription>
               </Alert>
 

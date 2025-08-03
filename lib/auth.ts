@@ -26,7 +26,7 @@ export const NEXT_AUTH = {
       async authorize(credentials) {
         const parsedCredentials = credentialsSchema.safeParse(credentials);
         if (!parsedCredentials.success) {
-          throw new Error('Invalid credentials');
+          return null; // Don't throw, return null
         }
 
         const { email, password } = parsedCredentials.data;
@@ -43,18 +43,24 @@ export const NEXT_AUTH = {
               password: hashedPassword,
             },
           });
+
+          // Return the newly created user immediately
+          return {
+            id: user.id.toString(),
+            email: user.email,
+          };
         } else {
           // Sign-in: verify password
           const isValidPassword = await compare(password, user.password);
           if (!isValidPassword) {
-            throw new Error('Invalid password');
+            return null; // Don't throw, return null
           }
-        }
 
-        return {
-          id: user.id.toString(),
-          email: user.email,
-        };
+          return {
+            id: user.id.toString(),
+            email: user.email,
+          };
+        }
       },
     }),
     GoogleProvider({
