@@ -23,7 +23,7 @@ export default function Hero() {
   };
 
   return (
-<main className="min-h-screen flex flex-col justify-center items-center px-4 py-12">
+<main className="min-h-screen flex flex-col justify-center items-center px-4 py-12 scroll-smooth">
   <BadgeButton />
 
   {/* Hero Text */}
