@@ -5,7 +5,7 @@ import { Providers } from "./provider";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/ui/theme-provider"
 import Footer from "@/components/Footer";
-
+import { Analytics } from '@vercel/analytics/next';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +43,7 @@ export default function RootLayout({
           >
             <Navbar />
             {children}
+            <Analytics />
             <Footer/>
           </ThemeProvider>
   
