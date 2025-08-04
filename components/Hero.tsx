@@ -8,6 +8,7 @@ import BadgeButton from './ui/badge-button';
 import Features from './Features';
 import HowItWorks from './HowItWorks';
 import { DemoFeedbacks } from './DemoFeedbacks';
+import CommonQuestions from './Accordian';
 
 export default function Hero() {
   const { data: session } = useSession();
@@ -73,6 +74,35 @@ export default function Hero() {
   </p>
   <div className="mt-6">
     <DemoFeedbacks />
+  </div>
+</div>
+
+<div className="mt-20 px-4 w-full text-center">
+  <h2 className="text-2xl sm:text-3xl font-medium text-primary">
+    FAQs
+  </h2>
+  <p className="text-sm sm:text-base md:text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
+    Got questions? Here's what people often ask about Quickfeed.
+  </p>
+  <div className="mt-6 text-left">
+    <CommonQuestions />
+  </div>
+</div>
+<div className="text-center mt-20 max-w-7xl mx-auto mb-8">
+  <h2 className="text-2xl sm:text-3xl font-medium text-primary">
+    Ready to Level Up Your Feedback Game?
+  </h2>
+  <p className="text-sm sm:text-base md:text-lg mt-4 max-w-2xl mx-auto text-muted-foreground px-4">
+    Start your journey to better user insights with Quickfeed — embed, collect, and grow effortlessly.
+  </p>
+  <div className="flex justify-center mt-8">
+    <Link
+      href="/signin"
+      className="flex items-center justify-center gap-2 px-6 py-2 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition"
+    >
+      Create your account
+      <ArrowRight className="w-4 h-4" />
+    </Link>
   </div>
 </div>
 
