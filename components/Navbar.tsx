@@ -26,7 +26,7 @@ const Navbar = () => {
             <img 
               src="/logo.png" 
               alt="Quickfeed Logo" 
-              className="h-8 w-8 md:h-10 md:w-10 dark:invert"
+              className="h-8 w-8 dark:invert"
             />
             <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">
               <span className="text-primary">Quick</span>Feed
