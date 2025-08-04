@@ -5,21 +5,35 @@ import { NEXT_AUTH } from '@/lib/auth';
 export const GET = async () => {
   try {
     const session = await getServerSession(NEXT_AUTH);
-    if (session.user) {
+
+    if (session?.user) {
       return NextResponse.json({
         user: session.user,
       });
     }
-  } catch (e: any) {
+  } catch (e: unknown) {
+    if (e instanceof Error) {
+      return NextResponse.json(
+        {
+          error: e.message,
+        },
+        {
+          status: 403,
+        }
+      );
+    }
+
+    // fallback for non-Error exceptions
     return NextResponse.json(
       {
-        error: e.message,
+        error: 'An unknown error occurred',
       },
       {
         status: 403,
       }
     );
   }
+
   return NextResponse.json(
     {
       message: 'You are not logged in',
