@@ -1,7 +1,7 @@
 "use server"
 import prisma from '@/lib/db';
 
-export default async function FetchAllFeedbacks(id: number) {
+export default async function fetchAllFeedbacks(id: number) {
   try {
     const feedbacks = await prisma.feedback.findMany({
       where: {

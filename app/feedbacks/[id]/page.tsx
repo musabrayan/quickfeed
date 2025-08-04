@@ -13,7 +13,7 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import fetchProjects from '@/app/actions/fetchProject';
-import fetchAllFeedbacks from '@/app/actions/FetchAllFeedbacks';
+import fetchAllFeedbacks from '@/app/actions/fetchAllFeedbacks';
 import { AISummary } from '@/app/actions/generateSummary';
 import { CodeSnippet } from '@/components/CodeSnippet';
 import { CodeBlock } from '@/components/ui/code-block';
