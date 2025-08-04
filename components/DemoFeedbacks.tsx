@@ -1,3 +1,5 @@
+// DemoFeedbacks.tsx
+
 import { cn } from '@/lib/utils';
 import { Marquee } from '@/components/ui/marquee';
 
@@ -54,7 +56,7 @@ const ReviewCard = ({
   return (
     <figure
       className={cn(
-        'relative md:w-64 w-48 h-40 md:h-full cursor-pointer overflow-hidden rounded-xl border p-4',
+        'relative w-56 sm:w-64 md:w-72 lg:w-80 h-40 md:h-full cursor-pointer overflow-hidden rounded-xl border p-3 sm:p-4',
         'border-border bg-card hover:bg-muted transition-colors shadow-sm'
       )}
     >
@@ -82,14 +84,14 @@ const ReviewCard = ({
 
 export function DemoFeedbacks() {
   return (
-    <section className="relative flex items-center justify-center overflow-hidden rounded-xl bg-background p-4 md:p-6 shadow-md">
-      <Marquee className="[--duration:40s]">
+    <section className="relative w-full flex items-center justify-center overflow-hidden rounded-xl bg-background py-2 sm:py-4 md:py-6 shadow-md">
+      <Marquee className="px-1 sm:px-2 md:px-4 [--duration:40s] space-x-2 sm:space-x-4">
         {reviews.map((review) => (
           <ReviewCard key={review.username} {...review} />
         ))}
       </Marquee>
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-background to-transparent"></div>
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-background to-transparent"></div>
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/6 sm:w-1/4 md:w-1/3 bg-gradient-to-r from-background to-transparent"></div>
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/6 sm:w-1/4 md:w-1/3 bg-gradient-to-l from-background to-transparent"></div>
     </section>
   );
 }
