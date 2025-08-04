@@ -195,7 +195,7 @@ export default function Page() {
       <div className="border border-border rounded-lg bg-card p-4 mb-6 shadow-sm">
         <h2 className="text-xl font-semibold mb-2 text-card-foreground">Customer Feedback Overview</h2>
         <div className="text-sm text-muted-foreground mb-4">
-          � Monitor, search, and analyze feedback from your users. Use the powerful tools below to gain insights from your data.
+          Monitor, search, and analyze feedback from your users. Use the powerful tools below to gain insights from your data.
         </div>
         <div className="flex flex-col sm:flex-row justify-between items-center mb-4 space-y-4 sm:space-y-0">
           <div className="flex items-center w-full">
@@ -261,11 +261,10 @@ export default function Page() {
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className={`w-4 h-4 inline-block ${
-                            i < feedback.rating
+                          className={`w-4 h-4 inline-block ${i < feedback.rating
                               ? 'text-primary fill-current'
                               : 'text-muted-foreground'
-                          }`}
+                            }`}
                         />
                       ))}
                     </TableCell>
@@ -289,11 +288,10 @@ export default function Page() {
                                   {[...Array(5)].map((_, i) => (
                                     <Star
                                       key={i}
-                                      className={`w-4 h-4 inline-block ${
-                                        i < feedback.rating
+                                      className={`w-4 h-4 inline-block ${i < feedback.rating
                                           ? 'text-primary fill-current'
                                           : 'text-muted-foreground'
-                                      }`}
+                                        }`}
                                     />
                                   ))}
                                 </span>
@@ -378,17 +376,18 @@ export default function Page() {
       <div className="border border-border rounded-lg bg-card p-4 mb-6 shadow-sm">
         <h2 className="text-xl font-semibold mb-2 text-card-foreground">Integration Code</h2>
         <div className="text-sm text-muted-foreground mb-4">
-          � Easily integrate Quickfeed into your website. Copy and paste the code below to start collecting feedback instantly.
+          Easily integrate Quickfeed into your website. Copy and paste the code below to start collecting feedback instantly.
         </div>
         <CodeSnippet
           tab1Content={
             <div>
               <CodeBlock
-                code={`<body>
-<script src="https://cdn.tailwindcss.com"></script>
-<script>tailwind.config = {darkMode: 'class'} </script>
-<script type="module" src="https://your-domain.vercel.app/feedback-widget.js"></script>
-<feedback-widget projectId=${id} websiteName="${project}"></feedback-widget>
+                code={`<head> 
+<link rel="stylesheet" href="https://feedbackwidget-delta.vercel.app/feedback-widget.css"> 
+</head>                  
+<body>
+<script type="module" src="https://feedbackwidget-delta.vercel.app/feedback-widget.js"></script>
+<feedback-widget projectId=${id} websiteName=${project}></feedback-widget>
 </body>`}
                 language="html"
                 filename="index.html"
@@ -398,27 +397,42 @@ export default function Page() {
           tab2Content={
             <div>
               <CodeBlock
-                code={` "use client";
+                code={`"use client";
                   
 import { useEffect } from 'react';
 
 function FeedBackWidget() {
   useEffect(() => {
+    // Load CSS
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://feedbackwidget-delta.vercel.app/feedback-widget.css';
+    document.head.appendChild(link);
+
+    // Load JavaScript
     const script = document.createElement('script');
-    script.src = 'https://your-domain.vercel.app/feedback-widget.js';
+    script.src = 'https://feedbackwidget-delta.vercel.app/feedback-widget.js';
     script.type = 'module';
     document.body.appendChild(script);
+
+    // Cleanup function to remove elements when component unmounts
+    return () => {
+      document.head.removeChild(link);
+      document.body.removeChild(script);
+    };
   }, []);
 
   return (
     <>
       {/* @ts-ignore */}
-      <feedback-widget projectId=${id} websiteName="${project}" />
+      <feedback-widget projectId="${id}" websiteName="${project}" />
     </>
   );
-}`}
+}
+
+export default FeedBackWidget;`}
                 language="typescript"
-                filename="index.tsx"
+                filename="FeedBackWidget.tsx"
               />
             </div>
           }
@@ -429,7 +443,7 @@ function FeedBackWidget() {
       <div className="border border-border rounded-lg bg-card p-4 shadow-sm">
         <h2 className="text-xl font-semibold mb-2 text-card-foreground">AI-Powered Insights</h2>
         <div className="text-sm text-muted-foreground mb-4">
-          � Generate intelligent summaries and insights from your customer feedback using advanced AI analysis.
+          Generate intelligent summaries and insights from your customer feedback using advanced AI analysis.
         </div>
         <Button
           onClick={() => getSummary(feedbacks)}
@@ -446,13 +460,26 @@ function FeedBackWidget() {
           )}
         </Button>
         {summary && (
-          <div className="border border-border bg-muted/50 p-4 rounded-md max-h-96 overflow-y-auto">
-            {santizedSummary && (
-              <div 
-                className="prose prose-sm max-w-none dark:prose-invert"
-                dangerouslySetInnerHTML={{ __html: santizedSummary }} 
-              />
-            )}
+          <div className="border border-border bg-card rounded-lg shadow-sm overflow-hidden">
+            <div className="p-6">
+              {santizedSummary && (
+                <div 
+                  className="prose prose-sm max-w-none dark:prose-invert
+                  prose-headings:text-card-foreground prose-headings:font-semibold
+                  prose-h1:text-2xl prose-h1:mb-6 prose-h1:pb-3 prose-h1:border-b prose-h1:border-border prose-h1:text-primary
+                  prose-h2:text-lg prose-h2:mt-8 prose-h2:mb-4 prose-h2:text-card-foreground prose-h2:font-medium
+                  prose-h3:text-base prose-h3:mt-6 prose-h3:mb-3 prose-h3:text-muted-foreground
+                  prose-p:text-card-foreground prose-p:leading-relaxed prose-p:mb-4 prose-p:text-sm
+                  prose-ul:my-4 prose-ul:space-y-3 prose-li:text-card-foreground prose-li:leading-relaxed prose-li:pl-2
+                  prose-strong:text-card-foreground prose-strong:font-semibold prose-strong:text-primary
+                  prose-em:text-muted-foreground prose-em:italic
+                  prose-hr:border-border prose-hr:my-8
+                  prose-code:bg-muted prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-code:text-primary
+                  space-y-4 max-h-[500px] overflow-y-auto scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent"
+                  dangerouslySetInnerHTML={{ __html: santizedSummary }} 
+                />
+              )}
+            </div>
           </div>
         )}
       </div>

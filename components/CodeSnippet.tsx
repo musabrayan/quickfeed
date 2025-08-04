@@ -8,29 +8,29 @@ interface TabsProps {
 export function CodeSnippet({ tab1Content, tab2Content }: TabsProps) {
   return (
     <Tabs defaultValue="Html" className="overflow-hidden max-h-full">
-      <TabsList className="flex w-full justify-start border-b border-gray-300 dark:border-gray-700">
+      <TabsList className="flex w-full justify-start border bg-background">
         <TabsTrigger
           value="Html"
-          className="px-4 py-2 border-b-2 border-transparent data-[state=active]:border-b-green-500 dark:data-[state=active]:border-b-blue-400 data-[state=active]:rounded-none flex items-center"
+          className="px-4 py-2 border-b-2 border-transparent data-[state=active]:border-b-primary data-[state=active]:text-primary data-[state=active]:rounded-none flex items-center hover:text-primary/80 transition-colors"
         >
           Html
         </TabsTrigger>
         <TabsTrigger
           value="Nextjs"
-          className="px-4 py-2 data-[state=active]:border-b-2 data-[state=active]:border-b-blue-500 dark:data-[state=active]:border-b-blue-400 data-[state=active]:rounded-none flex items-center"
+          className="px-4 py-2 border-b-2 border-transparent data-[state=active]:border-b-primary data-[state=active]:text-primary data-[state=active]:rounded-none flex items-center hover:text-primary/80 transition-colors"
         >
-          Nextjs
+          Next.js
         </TabsTrigger>
       </TabsList>
-      <div className=" max-h-full  ">
+      <div className="max-h-full bg-background">
         <TabsContent
-          className="p-2 max-h-full overflow-auto w-full  "
+          className="p-4 max-h-full overflow-auto w-full bg-card text-card-foreground"
           value="Html"
         >
           {tab1Content}
         </TabsContent>
         <TabsContent
-          className="p-2 max-h-full overflow-auto w-full "
+          className="p-4 max-h-full overflow-auto w-full bg-card text-card-foreground"
           value="Nextjs"
         >
           {tab2Content}

@@ -4,6 +4,8 @@ import Link from 'next/link';
 export default function Hero() {
   return (
     <main className="min-h-screen flex flex-col justify-center items-center px-4">
+      
+      
       <h1 className="text-4xl font-bold mb-4 text-center">
         Welcome to Feed-Wall
       </h1>

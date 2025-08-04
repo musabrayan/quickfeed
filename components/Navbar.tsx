@@ -35,6 +35,16 @@ const Navbar = () => {
         </Link>
 
         <div className="flex items-center space-x-2 md:space-x-4">
+          {session && (
+            <Link href="/projects">
+              <Button 
+                variant="ghost"
+                className="text-sm md:text-base hover:cursor-pointer"
+              >
+                Projects
+              </Button>
+            </Link>
+          )}
           <Button 
             onClick={handleAuthClick}
             className="text-sm md:text-base hover:cursor-pointer"
