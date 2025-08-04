@@ -36,7 +36,7 @@ const Navbar = () => {
 
         <div className="flex items-center space-x-2 md:space-x-4">
           {session && (
-            <Link href="/projects">
+            <Link href="/projects" className="hidden md:block">
               <Button 
                 variant="ghost"
                 className="text-sm md:text-base hover:cursor-pointer"
