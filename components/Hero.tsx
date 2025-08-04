@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import { ArrowRight, BarChart3, Code, Star,} from 'lucide-react';
 import BadgeButton from './ui/badge-button';
 import Features from './Features';
+import HowItWorks from './HowItWorks';
+import { DemoFeedbacks } from './DemoFeedbacks';
 
 export default function Hero() {
   const { data: session } = useSession();
@@ -61,6 +63,19 @@ export default function Hero() {
     </div>
   </div>
       <Features/>
+      <HowItWorks/>
+     <div className="mt-20 px-4 max-w-7xl mx-auto text-center">
+  <h2 className="text-2xl sm:text-3xl font-medium text-primary">
+    Experience QuickFeed in Action
+  </h2>
+  <p className="text-base sm:text-lg mt-4 mx-auto w-full sm:w-3/4 md:w-1/2 text-muted-foreground">
+    Dive into the live preview and see how Feed-Wall effortlessly enhances how you gather and showcase feedback.
+  </p>
+  <div className="mt-6">
+    <DemoFeedbacks />
+  </div>
+</div>
+
     </main>
 
     
