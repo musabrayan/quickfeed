@@ -14,6 +14,7 @@ export async function POST(req: NextRequest) {
   try {
     const feedback = await req.json();
     const parsedFeedback = feedbackSchema.safeParse(feedback);
+
     if (!parsedFeedback.success) {
       return NextResponse.json(
         { error: 'Invalid feedback' },
@@ -26,6 +27,7 @@ export async function POST(req: NextRequest) {
         }
       );
     }
+
     const submittedFeedback = await prisma.feedback.create({
       data: {
         name: parsedFeedback.data.name,
@@ -37,6 +39,7 @@ export async function POST(req: NextRequest) {
     });
 
     console.log(submittedFeedback);
+
     return NextResponse.json(
       {
         message: 'Feedback submitted successfully',
@@ -49,9 +52,23 @@ export async function POST(req: NextRequest) {
         },
       }
     );
-  } catch (err: any) {
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return NextResponse.json(
+        { error: err.message },
+        {
+          status: 500,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          },
+        }
+      );
+    }
+
+    // fallback in case it's not an Error instance
     return NextResponse.json(
-      { error: err.message },
+      { error: 'An unknown error occurred' },
       {
         status: 500,
         headers: {
