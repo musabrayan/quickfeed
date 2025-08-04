@@ -448,7 +448,7 @@ export default FeedBackWidget;`}
         <Button
           onClick={() => getSummary(feedbacks)}
           className="mb-4"
-          disabled={isSummaryLoading}
+          disabled={isSummaryLoading || !feedbacks || feedbacks.length === 0}
         >
           {isSummaryLoading ? (
             <>
