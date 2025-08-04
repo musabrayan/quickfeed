@@ -61,7 +61,7 @@ const Footer: React.FC<FooterProps> = ({
             <h4 className="text-md font-semibold mb-4">Connect with Us</h4>
             <div className="flex space-x-4 mb-4">
               <a
-                href="https://github.com/pankajkumardev"
+                href="https://github.com/musabrayan"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary"
