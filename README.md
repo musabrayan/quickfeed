@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# QuickFeed  
 
-## Getting Started
+<img width="2850" height="1150" alt="image" src="https://github.com/user-attachments/assets/674207c5-fa7a-47e0-81ac-5c21e6a6c01a" />
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🌟 Overview  
+**QuickFeed** makes it easy to integrate a feedback widget into your website or app, enabling direct communication with your users. All feedback is stored in one place, allowing you to browse, manage, and analyze it effortlessly. With AI-powered summaries, you can identify common strengths and weaknesses, and even highlight select feedback using embeddable showcase snippets.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 📝 Custom Feedback Widgets  
+- Seamlessly embed feedback widgets into any project  
+- Gather feedback from users directly on your website  
 
-## Learn More
+### 🔍 Efficient Feedback Management  
+- Filter and sort feedback by name, date, and rating  
+- Export feedback as CSV for offline review  
 
-To learn more about Next.js, take a look at the following resources:
+### 🤖 Smart AI Summaries  
+- Automatically generate summaries of feedback with pros and cons  
+- Highlight up to 6 feedback entries with an embeddable code snippet  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🌐 Hosting & Deployment  
+- Deployed using **Vercel** for fast and reliable performance  
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 💻 Technology Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Category           | Technology                          |
+|--------------------|-------------------------------------|
+| **Frontend**       | Next.js, TailwindCSS                |
+| **Backend**        | Next.js API Routes, Prisma, PostgreSQL |
+| **AI Integration** | Gemini API                          |
+| **Tools**          | TypeScript, Zod                     |
+| **Authentication** | NextAuth                           |
+| **Deployment**     | Vercel                              |
