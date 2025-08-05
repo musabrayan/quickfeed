@@ -1,7 +1,6 @@
 # QuickFeed  
-![QuickFeed Logo](image)
 
-**⭐ Stars** • **🍴 Forks** • **🐛 Issues**
+<img width="2850" height="1150" alt="image" src="https://github.com/user-attachments/assets/674207c5-fa7a-47e0-81ac-5c21e6a6c01a" />
 
 ---
 
