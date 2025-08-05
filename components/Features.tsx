@@ -56,7 +56,7 @@ export default function Features() {
           Why QuickFeed?
         </h2>
         <p className="mt-4 text-muted-foreground text-base sm:text-lg max-w-xl mx-auto">
-          From collection to presentation—Feed-Wall makes gathering, organizing, and showing feedback beautifully simple.
+          From collection to presentation QuickFeed makes gathering, organizing, and showing feedback beautifully simple.
         </p>
       </div>
 
