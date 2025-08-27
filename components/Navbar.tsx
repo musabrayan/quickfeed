@@ -1,20 +1,26 @@
 "use client"
 
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import ThemeToggleButton from "./ui/theme-toggle-button"
 import { Button } from './ui/button'
 import { signIn, signOut, useSession } from 'next-auth/react'
+import { Loader2 } from 'lucide-react'
 
 
 const Navbar = () => {
   const { data: session } = useSession()
+  const [isAuthLoading, setIsAuthLoading] = useState(false)
 
-  const handleAuthClick = () => {
+  const handleAuthClick = async () => {
     if (session) {
-      signOut()
+      setIsAuthLoading(true)
+      await signOut()
+      setIsAuthLoading(false)
     } else {
-      signIn()
+      setIsAuthLoading(true)
+      await signIn()
+      // Don't set loading false here - page will navigate
     }
   }
 
@@ -47,9 +53,16 @@ const Navbar = () => {
           )}
           <Button 
             onClick={handleAuthClick}
+            disabled={isAuthLoading}
             className="text-sm md:text-base hover:cursor-pointer"
           >
-            {session ? 'Logout' : 'Login'}
+            {isAuthLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              </>
+            ) : (
+              session ? 'Logout' : 'Login'
+            )}
           </Button>
           <ThemeToggleButton variant="circle-blur" start="top-right"/>
         </div>

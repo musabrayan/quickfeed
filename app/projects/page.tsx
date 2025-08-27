@@ -36,10 +36,10 @@ export default async function Page() {
         </div>
       </div>
 
-      {/* Main Content */}
+     
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {projects.length === 0 ? (
-          /* Empty State */
+ 
           <div className="text-center py-16">
             <ProjectDialog>
               <div className="mx-auto w-24 h-24 bg-muted rounded-full flex items-center justify-center mb-6 cursor-pointer hover:bg-muted/80 transition-colors">
@@ -52,7 +52,7 @@ export default async function Page() {
             </p>
           </div>
         ) : (
-          /* Projects Grid */
+      
           <>
             <div className="flex items-center justify-between mb-8">
               <div>

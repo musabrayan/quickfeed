@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
 import { Eye, EyeOff, Mail, Lock, Loader2 } from 'lucide-react';
-import Link from 'next/link';
+
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
@@ -39,13 +39,10 @@ export default function SignIn() {
       redirect: false,
     });
 
-    setIsLoading(false);
-
     if (res?.error) {
       setError('Invalid email or password. Please try again.');
+      setIsLoading(false);
     } else {
-      // You can add toast notification here if you install react-toastify
-      // toast.success("You've successfully logged in to your QuickFeed account.");
       router.push('/projects');
     }
   };
@@ -64,12 +61,11 @@ export default function SignIn() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {/* OAuth Button */}
+      
             <Button
               variant="outline"
               className="w-full"
               onClick={() => signIn('google')}
-              disabled={isLoading}
             >
               <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                 <path
@@ -103,7 +99,7 @@ export default function SignIn() {
               </div>
             </div>
 
-            {/* Login Form */}
+
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
@@ -162,16 +158,12 @@ export default function SignIn() {
                 </AlertDescription>
               </Alert>
 
-              <Button 
-                type="submit" 
-                className="w-full" 
-                disabled={isLoading}
-              >
+              <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? (
-                    <>
+                  <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Signing in...
-                    </>
+                  </>
                 ) : (
                   'Continue'
                 )}
