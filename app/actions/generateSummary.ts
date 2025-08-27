@@ -12,16 +12,13 @@ interface Feedback {
   projectid: number;
 }
 
-/**
- * Summarizes an array of Feedback into grouped "👍 Pros" and "👎 Cons"
- * while using proper systemInstruction placement for Gemini prompts.
- */
+
 export async function AISummary(feedbacks: Feedback[]): Promise<string> {
   if (feedbacks.length === 0) {
     throw new Error("AISummary: at least one feedback item is required");
   }
 
-  // Compose aggregated user prompt containing all feedback
+  // all feedback
   const userPrompt = feedbacks
     .map(
       (f, i) =>
@@ -35,7 +32,7 @@ export async function AISummary(feedbacks: Feedback[]): Promise<string> {
     apiKey: process.env.GOOGLE_API_KEY,
   });
 
-  // Combine system instruction with user prompt since this SDK version doesn't support systemInstruction
+
   const fullPrompt = `You are an expert feedback analyst. Create a comprehensive, well-structured summary using proper markdown formatting.
 
 **Instructions:**

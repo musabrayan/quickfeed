@@ -2,17 +2,22 @@ import prisma from '@/lib/db';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
+// Schema for validating feedback data structure
 const feedbackSchema = z.object({
   name: z.string(),
-  email: z.string().email(),
+  email: z.email(),
   feedback: z.string(),
   rating: z.number().int().min(1).max(5),
   projectid: z.number(),
 });
 
+// Handle POST requests to submit feedback
 export async function POST(req: NextRequest) {
   try {
+    // Parse request body
     const feedback = await req.json();
+    
+    // Validate the feedback data against schema
     const parsedFeedback = feedbackSchema.safeParse(feedback);
 
     if (!parsedFeedback.success) {
@@ -28,7 +33,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const submittedFeedback = await prisma.feedback.create({
+    // Save feedback to database
+    await prisma.feedback.create({
       data: {
         name: parsedFeedback.data.name,
         email: parsedFeedback.data.email,
@@ -38,8 +44,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    console.log(submittedFeedback);
-
+    // Return success response
     return NextResponse.json(
       {
         message: 'Feedback submitted successfully',
@@ -53,6 +58,7 @@ export async function POST(req: NextRequest) {
       }
     );
   } catch (err: unknown) {
+    // Handle known Error instances
     if (err instanceof Error) {
       return NextResponse.json(
         { error: err.message },
@@ -66,7 +72,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // fallback in case it's not an Error instance
+    // Fallback for unknown error types
     return NextResponse.json(
       { error: 'An unknown error occurred' },
       {
@@ -80,6 +86,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
+// Handle CORS preflight requests
 export async function OPTIONS() {
   return new NextResponse(null, {
     status: 204,

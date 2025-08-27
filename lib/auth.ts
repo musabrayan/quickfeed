@@ -6,17 +6,23 @@ import { compare, hash } from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
+// Validation schema for email/password credentials
 const credentialsSchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   password: z.string(),
 });
 
 export const NEXT_AUTH = {
   providers: [
+    // Email/Password authentication
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        email: { label: 'Email', type: 'text', placeholder: 'email' },
+        email: { 
+          label: 'Email', 
+          type: 'text', 
+          placeholder: 'email' },
+        
         password: {
           label: 'Password',
           type: 'password',
@@ -24,18 +30,19 @@ export const NEXT_AUTH = {
         },
       },
       async authorize(credentials) {
+        // Validate input format
         const parsedCredentials = credentialsSchema.safeParse(credentials);
         if (!parsedCredentials.success) {
-          return null; // Don't throw, return null
+          return null;
         }
 
         const { email, password } = parsedCredentials.data;
 
-        // Check if user exists
+        // Check if user exists in database
         let user = await prisma.user.findUnique({ where: { email } });
 
         if (!user) {
-          // Sign-up: create new user
+          // Auto sign-up: create new user if doesn't exist
           const hashedPassword = await hash(password, 10);
           user = await prisma.user.create({
             data: {
@@ -44,16 +51,16 @@ export const NEXT_AUTH = {
             },
           });
 
-          // Return the newly created user immediately
+          // Return newly created user
           return {
             id: user.id.toString(),
             email: user.email,
           };
         } else {
-          // Sign-in: verify password
+          // Sign-in: verify existing user's password
           const isValidPassword = await compare(password, user.password);
           if (!isValidPassword) {
-            return null; // Don't throw, return null
+            return null; // Invalid password
           }
 
           return {
@@ -63,6 +70,7 @@ export const NEXT_AUTH = {
         }
       },
     }),
+    // Google OAuth authentication
     GoogleProvider({
       clientId: process.env.GOOGLE_ID || '',
       clientSecret: process.env.GOOGLE_SECRET || '',
@@ -70,11 +78,12 @@ export const NEXT_AUTH = {
         const email = profile.email;
         let user = await prisma.user.findUnique({ where: { email } });
 
+        // Create user if doesn't exist (auto sign-up for Google)
         if (!user) {
           user = await prisma.user.create({
             data: {
               email,
-              password: '',
+              password: '', // Empty password for OAuth users
             },
           });
         }
@@ -88,12 +97,14 @@ export const NEXT_AUTH = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
+    // Add user ID to JWT token
     jwt: ({ token, user }: any) => {
       if (user) {
         token.userid = user.id;
       }
       return token;
     },
+    // Add user ID to session object
     session: ({ token, session }: any) => {
       if (session && session.user) {
         session.user.id = token.userid;
@@ -102,6 +113,6 @@ export const NEXT_AUTH = {
     },
   },
   pages: {
-    signIn: '/signin',
+    signIn: '/signin', // Custom sign-in page
   },
 };
