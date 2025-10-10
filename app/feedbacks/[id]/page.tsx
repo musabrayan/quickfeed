@@ -214,20 +214,23 @@ export default function Page() {
       </header>
 
       <Tabs defaultValue="feedbacks" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="feedbacks" className="flex items-center gap-2">
+        <TabsList className="flex w-full overflow-x-auto ">
+          <TabsTrigger value="feedbacks">
             <MessageSquare className="w-4 h-4" />
             Feedback
           </TabsTrigger>
-          <TabsTrigger value="overview" className="flex items-center gap-2">
+
+          <TabsTrigger value="overview">
             <BarChart3 className="w-4 h-4" />
             Overview
           </TabsTrigger>
-          <TabsTrigger value="integration" className="flex items-center gap-2">
+
+          <TabsTrigger value="integration">
             <Code2 className="w-4 h-4" />
             Integration
           </TabsTrigger>
-          <TabsTrigger value="insights" className="flex items-center gap-2">
+
+          <TabsTrigger value="insights">
             <Sparkles className="w-4 h-4" />
             AI Insights
           </TabsTrigger>
@@ -304,8 +307,8 @@ export default function Page() {
                             <Star
                               key={i}
                               className={`w-4 h-4 inline-block ${i < feedback.rating
-                                  ? 'text-primary fill-current'
-                                  : 'text-muted-foreground'
+                                ? 'text-primary fill-current'
+                                : 'text-muted-foreground'
                                 }`}
                             />
                           ))}
@@ -331,8 +334,8 @@ export default function Page() {
                                         <Star
                                           key={i}
                                           className={`w-4 h-4 inline-block ${i < feedback.rating
-                                              ? 'text-primary fill-current'
-                                              : 'text-muted-foreground'
+                                            ? 'text-primary fill-current'
+                                            : 'text-muted-foreground'
                                             }`}
                                         />
                                       ))}
@@ -518,7 +521,7 @@ export default FeedBackWidget;`}
               <div className="border border-border bg-card rounded-lg shadow-sm overflow-hidden">
                 <div className="p-6">
                   {santizedSummary && (
-                    <div 
+                    <div
                       className="prose prose-sm max-w-none dark:prose-invert
                       prose-headings:text-card-foreground prose-headings:font-semibold
                       prose-h1:text-2xl prose-h1:mb-6 prose-h1:pb-3 prose-h1:border-b prose-h1:border-border prose-h1:text-primary
@@ -531,7 +534,7 @@ export default FeedBackWidget;`}
                       prose-hr:border-border prose-hr:my-8
                       prose-code:bg-muted prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-code:text-primary
                       space-y-4 max-h-[500px] overflow-y-auto scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent"
-                      dangerouslySetInnerHTML={{ __html: santizedSummary }} 
+                      dangerouslySetInnerHTML={{ __html: santizedSummary }}
                     />
                   )}
                 </div>
