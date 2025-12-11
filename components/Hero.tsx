@@ -9,6 +9,7 @@ import Features from './Features';
 import HowItWorks from './HowItWorks';
 import { DemoFeedbacks } from './DemoFeedbacks';
 import CommonQuestions from './Accordian';
+import Prism from "./ui/Prism"
 
 export default function Hero() {
   const { data: session } = useSession();
@@ -23,46 +24,64 @@ export default function Hero() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col justify-center items-center px-4 py-12 scroll-smooth">
-      <BadgeButton />
-
-
-      <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-center">
-        Show What People Really Think
-        <span className="block text-xl sm:text-2xl md:text-3xl font-semibold mt-2">
-          Turn Insights into Big Wins 🚀
-        </span>
-      </h1>
-
-
-      <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-6 text-center max-w-md">
-        Seamlessly add a feedback tool to your site, highlight honest opinions, and unlock powerful growth—effortlessly.
-      </p>
-
-
-      <button
-        onClick={handleGetStarted}
-        className="px-6 py-3 text-sm md:text-base rounded-full border border-input hover:cursor-pointer bg-primary text-primary-foreground font-semibold hover:bg-accent hover:text-accent-foreground transition flex items-center gap-2 mb-10"
-      >
-        {session?.user ? 'Go to Projects' : 'Get Started'}
-        <ArrowRight className="w-4 h-4" />
-      </button>
-
-
-      <div className="flex flex-row flex-wrap justify-center items-center gap-6 sm:gap-10 text-center">
-        <div className="flex flex-col items-center min-w-[100px]">
-          <BarChart3 className="w-6 h-6 mb-1" />
-          <span className="text-sm font-medium">AI Insights</span>
+    <main className="min-h-screen flex flex-col items-center px-4 py-12 scroll-smooth">
+      <div className="relative w-full flex flex-col items-center justify-center text-center pt-20 pb-10">
+        <div
+          className="absolute inset-0 -z-10"
+          style={{
+            maskImage: 'linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%)',
+          }}
+        >
+          <Prism
+            animationType="rotate"
+            timeScale={0.5}
+            height={5.5}
+            baseWidth={6.5}
+            scale={1.6}
+            hueShift={0}
+            colorFrequency={1}
+            noise={0.2}
+            glow={1}
+          />
         </div>
-        <div className="flex flex-col items-center min-w-[100px]">
-          <Code className="w-6 h-6 mb-1" />
-          <span className="text-sm font-medium">Easy Integration</span>
-        </div>
-        <div className="flex flex-col items-center min-w-[100px]">
-          <Star className="w-6 h-6 mb-1" />
-          <span className="text-sm font-medium">Get Feedback</span>
+        <BadgeButton />
+
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-center">
+          Show What People Really Think
+          <span className="block text-xl sm:text-2xl md:text-3xl font-semibold mt-2">
+            Turn Insights into Big Wins 🚀
+          </span>
+        </h1>
+
+        <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-6 text-center max-w-md">
+          Seamlessly add a feedback tool to your site, highlight honest opinions, and unlock powerful growth—effortlessly.
+        </p>
+
+        <button
+          onClick={handleGetStarted}
+          className="px-6 py-3 text-sm md:text-base rounded-full border border-input hover:cursor-pointer bg-primary text-primary-foreground font-semibold hover:bg-accent hover:text-accent-foreground transition flex items-center gap-2 mb-10"
+        >
+          {session?.user ? 'Go to Projects' : 'Get Started'}
+          <ArrowRight className="w-4 h-4" />
+        </button>
+
+        <div className="flex flex-row flex-wrap justify-center items-center gap-6 sm:gap-10 text-center">
+          <div className="flex flex-col items-center min-w-[100px]">
+            <BarChart3 className="w-6 h-6 mb-1" />
+            <span className="text-sm font-medium">AI Insights</span>
+          </div>
+          <div className="flex flex-col items-center min-w-[100px]">
+            <Code className="w-6 h-6 mb-1" />
+            <span className="text-sm font-medium">Easy Integration</span>
+          </div>
+          <div className="flex flex-col items-center min-w-[100px]">
+            <Star className="w-6 h-6 mb-1" />
+            <span className="text-sm font-medium">Get Feedback</span>
+          </div>
         </div>
       </div>
+
       <Features />
       <HowItWorks />
 
@@ -79,7 +98,6 @@ export default function Hero() {
           <DemoFeedbacks />
         </div>
       </div>
-
 
       <div className="mt-20 px-4 w-full text-center">
         <h2 className="text-2xl sm:text-3xl font-medium text-primary">
@@ -109,8 +127,6 @@ export default function Hero() {
           </Link>
         </div>
       </div>
-
     </main>
-
   );
 }
